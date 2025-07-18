@@ -4,31 +4,33 @@ public class DynamicTopPipeScript : MonoBehaviour
 {
     public float MoveSpeed;
     public bool PipeContact = false;
+    private float InitialPos;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        InitialPos = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PipeContact == true)
-        {
-            PipeMoveUp();
-        }
-        else if (PipeContact == false)
+         if (PipeContact == false)
         {
             PipeMoveDown();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PipeContact = true;
+        PipeMoveUp();
     }
     public void PipeMoveUp()
     {
-        transform.position = transform.position + (Vector3.up * MoveSpeed) * Time.deltaTime;
+        PipeContact = true;
+        while (transform.position.y < InitialPos)
+        {
+            transform.position = transform.position + (Vector3.up * MoveSpeed) * Time.deltaTime;
+        }
+        PipeContact = false;
     }
     public void PipeMoveDown()
     {

@@ -32,8 +32,8 @@ public class PipeSpawnerScript : MonoBehaviour
             timer = 0;
             spawnRate -= spawnTimer;
         }
-                  
-            
+
+
     }
     void spawnPipe ()
     {
