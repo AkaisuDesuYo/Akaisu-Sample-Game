@@ -1,39 +1,51 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DynamicTopPipeScript : MonoBehaviour
 {
     public float MoveSpeed;
-    public bool PipeContact = false;
+    private bool PipeContact = false;
+    private bool ReturnToInitial = false;
     private float InitialPos;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
     void Start()
     {
         InitialPos = transform.position.y;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void FixedUpdate()
     {
-         if (PipeContact == false)
+        if (PipeContact == false && !ReturnToInitial)
         {
             PipeMoveDown();
         }
+        if (ReturnToInitial)
+        {
+            PipeMoveUp();
+            if (transform.position.y >= InitialPos)
+            {
+                transform.position = new Vector3(transform.position.x, InitialPos, transform.position.z);
+                ReturnToInitial = false;
+                PipeContact = true;
+            }
+        }    
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PipeMoveUp();
+        if (collision.gameObject.tag == "PipeComponent")
+        {
+            PipeContact = true;
+            ReturnToInitial = true;
+        }
     }
     public void PipeMoveUp()
     {
-        PipeContact = true;
-        while (transform.position.y < InitialPos)
-        {
-            transform.position = transform.position + (Vector3.up * MoveSpeed) * Time.deltaTime;
-        }
-        PipeContact = false;
+        transform.position = transform.position + (transform.up * MoveSpeed) * Time.deltaTime;
     }
     public void PipeMoveDown()
     {
-        transform.position = transform.position + (Vector3.down * MoveSpeed) * Time.deltaTime;
+        transform.position = transform.position - (transform.up * MoveSpeed) * Time.deltaTime;
     }
 }

@@ -8,13 +8,11 @@ public class BorbScript : MonoBehaviour
     private float DeadZoneTop = 4.83F;
     private float DeadZoneBot = -4.50F;
     public bool BirdIsAlive = true;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Logic.gameIsDead == false)
@@ -28,16 +26,11 @@ public class BorbScript : MonoBehaviour
             {
                 myRigidbody.linearVelocity = Vector2.up * flapStrength;
             }
-            if (transform.position.y > DeadZoneTop)
+            if (transform.position.y > DeadZoneTop || transform.position.y < DeadZoneBot)
             {
                 Logic.gameOver();
                 BirdIsAlive = false;
-            }
-            if (transform.position.y < DeadZoneBot)
-            {
-                Logic.gameOver();
-                BirdIsAlive = false;
-            }
+            }           
             if (BirdIsAlive == false)
             {
                 gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;

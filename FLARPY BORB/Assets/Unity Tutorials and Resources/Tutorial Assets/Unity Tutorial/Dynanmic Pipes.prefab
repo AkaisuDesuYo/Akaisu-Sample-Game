@@ -197,8 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547a1d115211aaf4493e39aca2580760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 5
-  PipeContact: 0
+  MoveSpeed: 0.5
 --- !u!50 &2188964863287871406
 Rigidbody2D:
   serializedVersion: 5
@@ -214,7 +213,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -373,7 +372,7 @@ GameObject:
   - component: {fileID: 7901955516445382093}
   m_Layer: 0
   m_Name: Middle
-  m_TagString: PipeComponent
+  m_TagString: PipeComponentUntangible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
